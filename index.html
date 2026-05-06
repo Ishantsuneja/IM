@@ -1041,7 +1041,7 @@ body {
 .sc-title { font-size:14px;font-weight:700;color:#1A1A2E;margin-bottom:2px; }
 .sc-sub  { font-size:12px;color:#8A8AA8;line-height:1.5; }
 .sc-mobile-row {
-  display:flex;gap:8px;align-items:stretch;
+  display:flex;gap:8px;align-items:stretch;flex-direction:column;
 }
 .sc-mobile-input {
   flex:1;display:flex;align-items:center;gap:0;
@@ -1739,7 +1739,7 @@ Structure: .pm-tile > .pm-logo + .pm-text > (.pm-label + .pm-sublabel)
 
 }
 
-/* Grid: 3×2 desktop, 3 cols mobile */
+/* Grid: 3×2 desktop, 2 cols mobile */
 
 #pmMethodGrid {
   display: grid !important;
@@ -1830,13 +1830,38 @@ Structure: .pm-tile > .pm-logo + .pm-text > (.pm-label + .pm-sublabel)
 
 @media (max-width: 600px) {
   #pmMethodGrid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 6px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
   }
 
   .pm-tile {
-    padding: 10px 11px !important;
-    gap: 9px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    padding: 12px 12px 10px !important;
+  }
+
+  .pm-logo {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 9px !important;
+  }
+
+  .pm-label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+
+  .pm-sublabel {
+    font-size: 9px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
   }
 
   .pm-logo {
@@ -2301,11 +2326,7 @@ Structure: .pm-tile > .pm-logo + .pm-text > (.pm-label + .pm-sublabel)
     border-top: none !important;
   }
 
-  /* ── Payment method grid: single column ── */
-
-  #pmMethodGrid {
-    grid-template-columns: repeat(3,1fr) !important;
-  }
+  /* ── Payment method grid: 2 columns on mobile ── */
 
   /* ── Additional benefits: comfortable touch targets ── */
 
@@ -2603,20 +2624,22 @@ Structure: .pm-tile > .pm-logo + .pm-text > (.pm-label + .pm-sublabel)
   }
 
   #pmMethodGrid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 7px !important;
   }
 
   .pm-tile {
-    min-width: 0 !important;
-    padding: 10px 6px 9px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 5px !important;
+    padding: 10px 10px 9px !important;
   }
 
   .pm-label {
     font-size: 10.5px !important;
   }
 
-  .pm-sub {
+  .pm-sublabel {
     font-size: 8.5px !important;
   }
 
@@ -3046,8 +3069,8 @@ Structure: .pm-tile > .pm-logo + .pm-text > (.pm-label + .pm-sublabel)
 
 .cf-group:focus-within,
 .cf-group.cf-active {
-  border-color:#FE7333;
-  box-shadow:0 0 0 3px rgba(254,115,51,.08);
+  border-color:rgba(254,115,51,.40);
+  box-shadow:0 0 0 3px rgba(254,115,51,.06);
   overflow:visible;
 
 }
@@ -6414,7 +6437,7 @@ svg.aed {
                         <div id="cardNum2Chk" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);opacity:0;transition:opacity .2s;pointer-events:none;"><svg width="14" height="14" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#1DB87E"></circle><path d="M6.5 11L9.5 14L15.5 8" stroke="white" stroke-width="2.2" stroke-linecap="round"></path></svg></div>
                         <div id="cardBrandIcon" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:26px;height:17px;border-radius:3px;background:#E8E8F0;display:flex;align-items:center;justify-content:center;"><svg width="18" height="11" viewBox="0 0 32 20" fill="none"><rect width="32" height="20" rx="3" fill="#D4D4E0"></rect><rect x="0" y="6" width="32" height="4" fill="#B0B0C8"></rect></svg></div>
                       </div>
-                      <div id="cfStepExpiry" style="width:96px;overflow:hidden;opacity:1;transition:width .3s cubic-bezier(.22,1,.36,1),opacity .25s;flex-shrink:0;border-left:1px solid #E8E8F0;">
+                      <div id="cfStepExpiry" style="width:0;overflow:hidden;opacity:0;transition:width .3s cubic-bezier(.22,1,.36,1),opacity .25s;flex-shrink:0;border-left:0px solid #E8E8F0;">
                         <div class="cf-field" style="border-bottom:none;width:96px;">
                           <div class="cf-label">Expiry</div>
                           <input id="expiry2" type="tel" inputmode="numeric" maxlength="5" placeholder="MM/YY" class="cf-input" style="font-family:'DM Mono',monospace;letter-spacing:.04em;padding-left:12px;padding-right:8px;" oninput="fmtExpiry2(this);revealCardStep()" onkeydown="handleExpiryKey(event,this)" onfocus="if(!paymentDetailsAdded)applyPaymentGlow()">
@@ -6422,7 +6445,7 @@ svg.aed {
                           <select id="expYear2" style="display:none;"></select>
                         </div>
                       </div>
-                      <div id="cfStepCvv" style="width:82px;overflow:hidden;opacity:1;transition:width .3s cubic-bezier(.22,1,.36,1),opacity .25s;flex-shrink:0;border-left:1px solid #E8E8F0;">
+                      <div id="cfStepCvv" style="width:0;overflow:hidden;opacity:0;transition:width .3s cubic-bezier(.22,1,.36,1),opacity .25s;flex-shrink:0;border-left:0px solid #E8E8F0;">
                         <div class="cf-field" style="border-bottom:none;width:82px;">
                           <div class="cf-label">CVV <span onclick="openCvvModal()" style="color:#FE7333;font-weight:600;cursor:pointer;pointer-events:auto;">?</span></div>
                           <input id="cvv2" type="tel" inputmode="numeric" maxlength="3" placeholder="•••" class="cf-input" style="font-family:'DM Mono',monospace;letter-spacing:.12em;padding-left:12px;padding-right:8px;" oninput="(function(el){el.value=el.value.replace(/\D/g,'').slice(0,4);checkCardFormDone();revealCardStep();})(this);" onfocus="if(!paymentDetailsAdded)applyPaymentGlow();">
@@ -6463,22 +6486,12 @@ svg.aed {
                     <svg id="arChkSvg" width="11" height="11" viewBox="0 0 11 11" fill="none" style="display:none;"><path d="M1.5 5.5l3 3L9.5 2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                   </div>
                   <div style="flex:1;min-width:0;">
-                    <div id="arTipTrigger" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;position:relative;cursor:pointer;"
-                      onmouseenter="document.getElementById('arInnerTip').style.display='block';"
+                    <div id="arTipTrigger" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;cursor:pointer;"
+                      onmouseenter="(function(){var ic=document.getElementById('arIconSvg');var t=document.getElementById('arInnerTip');if(!ic||!t)return;t.style.visibility='hidden';t.style.display='block';var h=t.offsetHeight;t.style.display='none';t.style.visibility='';var r=ic.getBoundingClientRect();t.style.top=(r.top-h-10)+'px';t.style.left=Math.max(8,Math.min(r.left+r.width/2-150,window.innerWidth-308))+'px';t.style.display='block';})();"
                       onmouseleave="(function(){var t=document.getElementById('arInnerTip');if(t&&!t.classList.contains('ar-tip-open'))t.style.display='none';})();"
-                      onclick="(function(e){e.stopPropagation();var t=document.getElementById('arInnerTip');if(!t)return;var open=t.classList.toggle('ar-tip-open');t.style.display=open?'block':'none';if(open){document.addEventListener('click',function h(ev){if(!document.getElementById('arTipTrigger').contains(ev.target)){t.classList.remove('ar-tip-open');t.style.display='none';document.removeEventListener('click',h);}});}})(event)">
+                      onclick="(function(e){e.stopPropagation();var ic=document.getElementById('arIconSvg');var t=document.getElementById('arInnerTip');if(!t)return;var open=t.classList.toggle('ar-tip-open');if(open){t.style.visibility='hidden';t.style.display='block';var h=t.offsetHeight;t.style.display='none';t.style.visibility='';var r=ic.getBoundingClientRect();t.style.top=(r.top-h-10)+'px';t.style.left=Math.max(8,Math.min(r.left+r.width/2-150,window.innerWidth-308))+'px';t.style.display='block';document.addEventListener('click',function h2(ev){if(!document.getElementById('arTipTrigger').contains(ev.target)){t.classList.remove('ar-tip-open');t.style.display='none';document.removeEventListener('click',h2);}});}else{t.style.display='none';}})(event)">
                       <span style="font-size:13px;font-weight:600;color:#1A1A2E;line-height:1.5;border-bottom:1.5px dashed #B0B8CC;">Save my card to enable Auto-Renew and for seamless purchases of life's next big moments</span>
-                      <svg width="16" height="16" viewBox="0 0 18 18" fill="none" style="flex-shrink:0;"><circle cx="9" cy="9" r="8" stroke="#1E88E5" stroke-width="1.6"></circle><path d="M9 8.5v4M9 6.2v.6" stroke="#1E88E5" stroke-width="1.7" stroke-linecap="round"></path></svg>
-                      <div id="arInnerTip" style="display:none;position:absolute;bottom:calc(100% + 10px);left:0;width:300px;max-width:90vw;background:#1A1A2E;border-radius:12px;padding:14px 16px;box-shadow:0 12px 36px rgba(0,0,0,.30);z-index:9999;pointer-events:none;animation:arTipFadeIn .15s ease;">
-                        <div style="font-size:9px;font-weight:800;color:#64B5F6;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Auto-Renew &amp; Card Save</div>
-                        <div style="font-size:12.5px;font-weight:500;color:#fff;line-height:1.6;">
-                          <div style="margin-bottom:8px;">We believe managing your essentials should be effortless.</div>
-                          <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;"><span style="color:#FE7333;flex-shrink:0;margin-top:2px;">•</span><span>We will securely store your card to handle renewals for you.</span></div>
-                          <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;"><span style="color:#FE7333;flex-shrink:0;margin-top:2px;">•</span><span>Send a reminder before any payment is processed.</span></div>
-                          <div style="display:flex;align-items:flex-start;gap:7px;"><span style="color:#FE7333;flex-shrink:0;margin-top:2px;">•</span><span>Ensure you can opt-out at any time.</span></div>
-                        </div>
-                        <div style="position:absolute;bottom:-6px;left:18px;width:12px;height:12px;background:#1A1A2E;transform:rotate(45deg);border-radius:2px;"></div>
-                      </div>
+                      <svg id="arIconSvg" width="16" height="16" viewBox="0 0 18 18" fill="none" style="flex-shrink:0;"><circle cx="9" cy="9" r="8" stroke="#1E88E5" stroke-width="1.6"></circle><path d="M9 8.5v4M9 6.2v.6" stroke="#1E88E5" stroke-width="1.7" stroke-linecap="round"></path></svg>
                     </div>
                     <div style="font-size:11.5px;color:#8A8AA8;line-height:1.55;margin-top:7px;">By enabling Auto-Renew, you authorise InsuranceMarket.ae (a registered trademark of AFIA Insurance Brokerage Services L.L.C.) to securely store your card. You will be notified prior to any charge pertaining to future purchases or auto-renewal of your policy. You can manage your preferences anytime in the myAlfred app Settings.</div>
                   </div>
@@ -6493,7 +6506,7 @@ svg.aed {
 <!-- DESKTOP TERMS AGREEMENT CARD — desktop only, inline at bottom of payment section -->
           </div><!-- /paymentCard -->
 
-  <div id="sideTermsCard" style="display:none;margin:0;border-radius:0 0 20px 20px;background:linear-gradient(135deg,#F0FDF8 0%,#E8FAF3 100%);border-top:2px solid rgba(29,184,126,.4);">
+  <div id="sideTermsCard" style="display:none;margin:0;border-radius:0 0 20px 20px;background:linear-gradient(135deg,#F0FDF8 0%,#E8FAF3 100%);">
     <div id="desktopTermsInner" style="background-color:#141527;color:#ffffff;display:flex;align-items:center;gap:24px;padding:14px 28px;border-top:2px solid #fe7333;border-radius:0px 0px 10px 10px;">
 
       <!-- LEFT: T&C text -->
@@ -9314,7 +9327,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (newC) newC.style.display = 'block';
   var arRow = document.getElementById('autoRenewRow');
   if (arRow) arRow.style.display = '';
-  setInlineCtaActive(false);
+  setInlineCtaActive(true);
 });
 </script>
 
@@ -9368,6 +9381,21 @@ document.addEventListener('DOMContentLoaded', function() {
           <div style="font-size:13px;font-weight:800;color:#1A1A2E;line-height:1.3;white-space:nowrap;">Ask InstantAlfred™</div>
         </div>
       </button>
+<script>
+</script>
+
+<!-- Auto-Renew tooltip — body-level so no parent clips it -->
+<div id="arInnerTip" style="display:none;position:fixed;width:300px;background:#1A1A2E;border-radius:12px;padding:14px 16px;box-shadow:0 12px 36px rgba(0,0,0,.30);z-index:99999;pointer-events:none;animation:arTipFadeIn .15s ease;">
+  <div style="font-size:9px;font-weight:800;color:#64B5F6;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Auto-Renew &amp; Card Save</div>
+  <div style="font-size:12.5px;font-weight:500;color:#fff;line-height:1.6;">
+    <div style="margin-bottom:8px;">We believe managing your essentials should be effortless.</div>
+    <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;"><span style="color:#FE7333;flex-shrink:0;margin-top:2px;">•</span><span>We will securely store your card to handle renewals for you.</span></div>
+    <div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;"><span style="color:#FE7333;flex-shrink:0;margin-top:2px;">•</span><span>Send a reminder before any payment is processed.</span></div>
+    <div style="display:flex;align-items:flex-start;gap:7px;"><span style="color:#FE7333;flex-shrink:0;margin-top:2px;">•</span><span>Ensure you can opt-out at any time.</span></div>
+  </div>
+  <div id="arTipArrow" style="position:absolute;bottom:-6px;left:142px;width:12px;height:12px;background:#1A1A2E;transform:rotate(45deg);border-radius:2px;"></div>
+</div>
+
 </body>
 
 </html>
